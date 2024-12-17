@@ -1,0 +1,76 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/php-mariadb
+{
+	"name": "PHP & MariaDB",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
+	"postAttachCommand": {
+		// "app": "apache2ctl start"
+		"app": "/bin/sh .devcontainer/postAttachCommand.sh"
+		},
+	"forwardPorts": [
+		80,
+		8080,
+		3001
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html; if [ -f composer.json ];then composer install;fi",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+		"extensions": [
+			"ikappas.composer",
+			"Vue.volar",
+			"PKief.material-icon-theme",
+			"DavidAnson.vscode-markdownlint",
+			"formulahendry.code-runner",
+			"eamodio.gitlens",
+			"esbenp.prettier-vscode",
+			"rvest.vs-code-prettier-eslint",
+			"shardulm94.trailing-spaces",
+			"peakchen90.open-html-in-browser",
+			"formulahendry.auto-rename-tag",
+			"formulahendry.auto-complete-tag",
+			"dzhavat.bracket-pair-toggler",
+			"ecmel.vscode-html-css",
+			"AnbuselvanRocky.bootstrap5-vscode",
+			"tonybaloney.vscode-pets",
+			"titiaiev.vue-docs",
+			"dariofuzinato.vue-peek",
+			"GitHub.vscode-github-actions",
+			"ms-vscode.remote-repositories",
+			"ritwickdey.LiveServer"
+		]
+		}
+	},
+	"portsAttributes": {
+		"80": {
+			"label": "apache_http"
+		},
+		"3001": {
+			"label": "phpmyadmin"
+		},
+		"8080": {
+			"label": "apache_https"
+		}
+	}
+  
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

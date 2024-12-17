@@ -1,0 +1,16 @@
+{
+    "editor.fontSize": 16,
+    "terminal.integrated.fontSize": 16,
+    "editor.fontWeight": "normal",
+    "editor.fontFamily": " 'BIZ UDゴシック', 'Source Han Code JP N', 'Tahoma',monospace ",
+    "workbench.preferredDarkColorTheme": "Default Dark Modern",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Default Dark Modern",
+    "window.autoDetectColorScheme": false,
+    "editor.renderWhitespace": "all",
+    "editor.mouseWheelZoom": true,
+    "terminal.integrated.mouseWheelZoom": true,
+    "terminal.integrated.fontFamily": " 'BIZ UDゴシック', monospace",
+    "editor.fontLigatures":false,
+    "emmet.variables": {"lang": "ja"},
+  }

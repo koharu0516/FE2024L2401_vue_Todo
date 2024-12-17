@@ -1,0 +1,16 @@
+{
+    "pluginsFile": false,
+    "modifyObstructiveCode": false,
+    "experimentalStudio": true,
+    "reporter": "mochawesome",
+    "reporterOptions": {
+      "reportDir": "cypress/results",
+      "overwrite": false,
+      "html": false,
+      "json": true
+    },
+    "screenshotsFolder": "cypress/results/screenshots",
+    "videosFolder": "cypress/results/videos"
+  }
+  
+  
