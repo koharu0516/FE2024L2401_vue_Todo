@@ -5,22 +5,211 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title></title>
   </head>
+  <head>
+    <link rel="stylesheet" href="css/style.css">
   <body>
     <div id="app">
       <article class="wrap">
         <!-- section要素追加 todo-form -->
-
+        <section class="todo-form">
+          <input
+          type="text"
+          name="todo-text"
+          class="input-text"
+          placeholder="please input todo"
+          :value="text"
+          @input="inputText"
+          />
+          <button
+          class="add-button"
+          @click="addTodo"
+          >ADD TODO</button>
+        </section>
           <!-- テキストボックスを追加 -->
 
           <!-- ボタンを追加 -->
 
         <!-- section要素追加 list-area -->
-
+        <section class="list-area">
+          <div class="'area-incomplete">
+            <p class="todo-title">incomplete item</p>
+            <ul class="todo-area">
+              <li
+              v-for="(item,i) in incompleteTodo"
+              :key="i"
+              class="list"
+              >
+              <span class="list-label">{{item.text}}</span>
+              <span class="button-area">
+                <button
+                class="list-button button-done"
+                @click = "toggleIdDone(item.id)"
+                >DONE</button>
+                <button 
+                class="list-button button-delete"
+                @click="deleteTodo(item.id)"
+                >DELETE</button>
+              </span>
+            </li>
+          </ul>
+          </div>
+          <div class="area-incomplete">
+            <p class="todo-title">complete items</p>
+            <ul class="todo-area">
+              <li v-for="(item,i)in doneTodo"
+              :key="i"
+              class="list"
+              >
+              <span class="list-label">{{item.text}}</span>
+              <span class="button-area">
+                <button
+                class="list-button"
+                @click = "toggleIdDone(item.id)"
+                >RETUEN</button>
+                <button 
+                class="list-button button-delete"
+                @click="deleteTodo(item.id)"
+                >DELETE</button>
+              </span>
+            </li>
+            </ul>
+          </div>
+        </section>
               <!-- todosをリストレンダリング -->
                
       </article>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./script/script.js"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div id="app">
+      <article class="wrap">
+        <!-- section要素追加 todo-form -->
+        <section class="todo-form">
+          <input
+            type="text"
+            name="todo-text"
+            class="input-text"
+            placeholder="please input todo"
+            :value="text"
+            @input="inputText"
+          />
+          <button
+            class="add-button"
+            @click="addTodo"
+          >
+            ADD TODO
+          </button>
+        </section>
+
+        <!-- section要素追加 list-area -->
+        <section class="list-area">
+          <div class="area-incomplete">
+            <p class="todo-title">Incomplete Items</p>
+            <ul class="todo-area">
+              <li
+                v-for="(item, i) in incompleteTodo"
+                :key="item.id"
+                class="list"
+              >
+                <span class="list-label">{{ item.text }}</span>
+                <span class="button-area">
+                  <button
+                    class="list-button button-done"
+                    @click="toggleIdDone(item.id)"
+                  >
+                    DONE
+                  </button>
+                  <button
+                    class="list-button button-delete"
+                    @click="deleteTodo(item.id)"
+                  >
+                    DELETE
+                  </button>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="area-complete">
+            <p class="todo-title">Complete Items</p>
+            <ul class="todo-area">
+              <li
+                v-for="(item, i) in doneTodo"
+                :key="item.id"
+                class="list"
+              >
+                <span class="list-label">{{ item.text }}</span>
+                <span class="button-area">
+                  <button
+                    class="list-button"
+                    @click="toggleIdDone(item.id)"
+                  >
+                    RETURN
+                  </button>
+                  <button
+                    class="list-button button-delete"
+                    @click="deleteTodo(item.id)"
+                  >
+                    DELETE
+                  </button>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          text: "",
+          incompleteTodo: [],
+          doneTodo: [],
+        },
+        methods: {
+          inputText(event) {
+            this.text = event.target.value;
+          },
+          addTodo() {
+            if (this.text.trim() !== "") {
+              this.incompleteTodo.push({
+                id: Date.now(),
+                text: this.text.trim(),
+              });
+              this.text = "";
+            }
+          },
+          toggleIdDone(id) {
+            const index = this.incompleteTodo.findIndex((item) => item.id === id);
+            if (index !== -1) {
+              const [doneItem] = this.incompleteTodo.splice(index, 1);
+              this.doneTodo.push(doneItem);
+            } else {
+              const doneIndex = this.doneTodo.findIndex((item) => item.id === id);
+              const [returnItem] = this.doneTodo.splice(doneIndex, 1);
+              this.incompleteTodo.push(returnItem);
+            }
+          },
+          deleteTodo(id) {
+            this.incompleteTodo = this.incompleteTodo.filter((item) => item.id !== id);
+            this.doneTodo = this.doneTodo.filter((item) => item.id !== id);
+          },
+        },
+      });
+    </script>
+    </head>
   </body>
 </html>
